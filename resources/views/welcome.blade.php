@@ -13,69 +13,286 @@
         @vite('resources/css/app.css')
     </head>
     <body>
-        <header class=" py-8 bg-[#f7f9faff] sticky top-0">
-            <nav class="container mx-auto flex justify-between items-center">
-                <div class="md:w-[350px]">
-                    <img src="https://automobiliard.com/user/resources/images/AMnav.png" alt="compnay logo" class="object-fit ">
-                </div>
-                <div class="flex gap-8 text-xl text-blue-700 font-medium max-[850px]:hidden">
-                    <a href="{{ route('home') }}">Home</a>
-                    <select name="nav-option" id="nav-opt" class="w-fit">
-                        <option value="cars" selected class="w-fit px-8">Buy</option>
-                        <option value="used">Used Cars</option>
-                        <option value="new">New Cars</option>
-                        <option value="sports">Sports Cars</option>
-                    </select>
-                    <a href="{{ route('home') }}">Search</a>
-                </div>
-                <div class="flex gap-3 text-blue-700 font-medium text-xl max-[850px]:hidden ">
-                    <a href="{{ route('login') }}">Login</a>
-                    <span class="bg-blue-700 px-[1px]"></span>
-                    <a href="{{ route('register') }}">Register</a>
-                </div>
-
-                    <button class="md:hidden">
-                        <i class="fa-solid fa-bars "></i>
-                    </button>
-               
-            </nav>
-        </header>
+        <x-navbar></x-navbar>
 
          <!-- Hero Section-->
-         <section class="relative bg-[url('https://automobiliard.com/user/resources/images/b5.jpg')] bg-no-repeat bg-cover h-screen w-full">
+         <section class="relative bg-[url('https://automobiliard.com/user/resources/images/b5.jpg')] bg-no-repeat bg-cover py-18 w-full">
             <div class="absolute inset-0 bg-gradient-to-b from-[rgba(20,32,50,0.7)] to-[rgba(20,32,50,0.7)] z-10"></div>
-            <div class="relative container grid grid-cols-2 gap-8 mx-auto z-10 items-center h-full">
+            <div class="relative container grid grid-cols-2 max-md:grid-cols-1 max-md:py-6 max-md:px-3 gap-8 mx-auto z-10 items-center h-full">
                 <div class="text-white">
-                    <h2>Your Trusted Auto Marketplace in the Dominican Republic.</h2>
-                    <h3>At Automobilia we have revolutionized the car buying and selling experience say goodbye to the hassle of traditional car transactions</h3>
+                    <h2 class="text-5xl font-bold mb-2">Your Trusted Auto Marketplace in the Dominican Republic.</h2>
+                    <h3 class="text-xl">At Automobilia we have revolutionized the car buying and selling experience say goodbye to the hassle of traditional car transactions</h3>
                 </div>
-                <form action="" class="bg-white px-2 py-5">
+                <form action="" class="bg-white px-2 py-5 flex flex-col gap-5 rounded border-11 border-slate-400">
                     <div class="flex justify-between items-center text-xl font-medium">
                         <label for="all" class="w-full text-center py-3 cursor-pointer ">
                             All
                             <input class="peer hidden" type="radio" name="type" id="all">
-                            <span class="block w-full border-b border-gray-300 peer-checked:border-red-400 peer-checked:border-b-2"></span>
+                            <span class="block w-full border-b border-gray-300 peer-checked:border-red-400"></span>
                         </label>
                         <label for="new" class="w-full text-center py-3 cursor-pointer">
                             New
                             <input class="peer hidden" type="radio" name="type" id="new">
-                            <span class="block w-full border-b border-gray-300 peer-checked:border-red-400 peer-checked:border-b-2"></span>
+                            <span class="block w-full border-b border-gray-300 peer-checked:border-red-400 "></span>
                         </label>
                         <label for="used" class="w-full text-center py-3 cursor-pointer">
                             Used
                             <input class="peer hidden" type="radio" name="type" id="used">
-                            <span class="block w-full border-b border-gray-300 peer-checked:border-red-400 peer-checked:border-b-2"></span>
+                            <span class="block w-full border-b border-gray-300 peer-checked:border-red-400 "></span>
                         </label>
                     </div>
 
+                    <div id="1" class="input relative">
+                        <label class="px-1" for="make">Select By Make</label>
+                        <input id="make" class="border cursor-pointer border-slate-300 rounded w-full px-3 py-2" type="text" placeholder="Make">
+                        <div id="drop-down" class="bg-white">
+                            <input class="border border-slate-300 w-full mt-1 px-3 " type="text">
+                            <div class="h-[150px] overflow-y-scroll flex flex-col items-start">
+                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
+                                    MINI
+                                </button>
+                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
+                                    Ford
+                                </button>
+                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
+                                    Mustang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="2" class="input relative">
+                        <label class="px-1" for="make">Select By Model</label>
+                        <input id="make" class="border cursor-pointer  border-slate-300 rounded w-full px-3 py-2" type="text" placeholder="Model">
+                        <div id="drop-down" class="bg-white">
+                            <input class="border border-slate-300 w-full mt-1 px-3 " type="text">
+                            <div class="h-[150px] overflow-y-scroll flex flex-col items-start">
+                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
+                                    Cooper
+                                </button>
+                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
+                                    Hardtop
+                                </button>
+                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
+                                    Mustang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="3" class="input relative">
+                        <label class="px-1" for="make">Select By Year</label>
+                        <input id="make" class="border cursor-pointer border-slate-300 rounded w-full px-3 py-2" type="text" placeholder="Year">
+                        <div id="drop-down" class="bg-white">
+                            <input class="border border-slate-300 w-full mt-1 px-3 " type="text">
+                            <div class="h-[150px] overflow-y-scroll flex flex-col items-start">
+                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
+                                    2005
+                                </button>
+                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
+                                    2006
+                                </button>
+                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
+                                    2007
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
 
-                    
+                    <button type="submit" class="bg-blue-700 border-none outline-none cursor-pointer w-full py-3 text-white text-xl mt-3 rounded" >Search</button>
                 </form>
             </div>
+    
+                <img class="absolute -bottom-20 z-10 -translate-x-[50%] left-1/2" src="https://automobiliard.com/user/resources/images/Frame.svg" alt="">
         </section>
 
 
 
+        <!-- About Section -->
+
+        <section class="container mx-auto py-20 text-center">
+            <h2 class="text-black font-bold text-3xl">Easy Car Buying and Selling—Just 3 Steps!</h2>
+            <p class="text-slate-700">Car selling and buying has never been simpler until Automobilia came. Our platform enables you to buy cars in the Dominican Republic and find vehicles for sale without the hassle of unnecessary paperwork. Whether you’re in Santo Domingo or anywhere else, Automobilia makes the process easy and stress-free.</p>
+            <div class="grid grid-cols-3 gap-15 sm:max-md:grid-cols-2 max-sm:grid-cols-1">
+                <div  class="text-center flex flex-col justify-center">
+                    <img src="https://automobiliard.com/user/resources/images/girl-doing-online-payment%201.png" alt="">
+                    <h3 class="text-2xl font-bold">Contact Trusted Dealers</h3>
+                    <p class="text-slate-700">We connect you to reputable auto dealers in Santo Domingo and across the country for all types of vehicle sales. </p>
+                </div>
+                <div  class="text-center flex flex-col justify-center">
+                    <img src="https://automobiliard.com/user/resources/images/jumping%202.png" alt="paerson is enjouing and happy">
+                    <h3 class="text-2xl font-bold">Find the Best Deals</h3>
+                    <p class="text-slate-700">Discover the best deals on affordable cars in the Dominican Republic and find quality vehicles for sale at the best prices. </p>
+                </div>
+                <div class="text-center flex flex-col justify-center">
+                    <img class="text-center" src="https://automobiliard.com/user/resources/images/lady-driving-car%202.png" alt="paerson is enjouing and happy">
+                    <h3 class="text-2xl font-bold">Find the Best Deals</h3>
+                    <p class="text-slate-700">Discover the best deals on affordable cars in the Dominican Republic and find quality vehicles for sale at the best prices. </p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Our Dealers and Buyers  -->
+
+
+        <section class="bg-blue-600 md:h-[800px] flex flex-col items-center py-8 " >
+            <h2 class="text-white text-3xl font-bold" >Our Buyers & Dealers</h2>
+            <div class="grid max-md:px-3 py-8 md:grid-cols-2  gap-15 container mx-auto items-start mt-8">
+                <div class="bg-white rounded px-3 py-3" >
+                    <div>
+                    <img src="https://automobiliard.com/user/resources/images/dealership.webp" alt="dealing">
+                    </div>
+                    <h3 class="text-2xl font-semibold" >For Dealers</h3>
+                    <p id="half-1">
+                    Automobilia is committed to empowering auto dealers in the Dominican Republic. We offer CRM solutions to manage and maintain your inventory with ease, helping you stay on top of the market. Automobilia provides insigh....
+                    </p>
+                    <p id="full-1" class="hidden"  >
+                    Automobilia is committed to empowering auto dealers in the Dominican Republic. We offer CRM solutions to manage and maintain your inventory with ease, helping you stay on top of the market. Automobilia provides insights into market trends, vehicle valuations, and optimal car selling practices. Our platform streamlines operations, enhances customer engagement, and improves overall efficiency. With real-time data and AI-driven analytics, we help you make smarter business decisions. Connect with us to maximize your dealership’s potential and stay ahead in the competitive automotive industry! 
+                    </p>
+                    <button id="btn-1" onclick="handleFir()" class="bg-pink-500 px-3 py-2 font-semibold   text-white rounded mt-3">Read More</button>
+                </div>
+                <div class="bg-white rounded px-3 py-3" >
+                    <div>
+                    <img src="https://automobiliard.com/user/resources/images/buyer.webp" alt="byig">
+                    </div>
+                    <h3 class="text-2xl font-semibold" >For Buyers</h3>
+                    <p id="half-2">
+                    search the best car deals and cheap cars for sale with Automobilia. We link you with verified auto dealers who are ready to provide you with the best quality, low-cost cars, ultimately making this experience less pain....
+                    </p>
+                    <p id="full-2" class="hidden">
+                    Search the best car deals and cheap cars for sale with Automobilia. We link you with verified auto dealers who are ready to provide you with the best quality, low-cost cars, ultimately making this experience less painful. Being one of the most credible car dealerships in Santo Domingo, we help you in searching for cars for sale in the Dominican Republic that suit your budget and requirements. Automobilia helps you buy your dream car with ease and confidence. 
+                    </p>
+                    <button id="btn-2" onclick="handleSec() " class="bg-pink-500 px-3 py-2 font-semibold  text-white rounded mt-3">Read More</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="container mx-auto my-10">
+            <h2 class="text-3xl" > 
+                Browse
+                <span class="text-3xl font-bold" >Old & New</span> 
+                Cars           
+            </h2>
+            <div class="flex justify-between items-center px-8 py-5 bg-slate-200 rounded-xl my-10">
+                <h3 class="text-xl font-semibold" >Select By Make</h3>
+                <div class="bg-slate-300 flex rounded overflow-hidden ">
+                    <button class="w-full focus:bg-pink-400 focus:text-white px-13 py-3 text-slate-600" >Used</button>
+                    <button class="w-full focus:bg-pink-400 focus:text-white px-13 py-3 text-slate-600 " >New</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-6 sm:grid-cols-3 grid-cols-1 max-sm:px-3 py-6 gap-8">
+                <div class="flex items-center px-4 py-2 gap-3 border group hover:border-blue-700 transition cursor-pointer">
+                    <img src="https://automobiliard.com/user/resources/images/Chevrolet.png" alt="">
+                    <p class="group-hover:text-blue-700 transition">Cheverolte</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- footer -->
+
+        <x-footer></x-footer>
     </body>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Get all input containers
+    const inputContainers = document.querySelectorAll('.input');
+
+    inputContainers.forEach(container => {
+        const mainInput = container.querySelector('input[type="text"]');
+        const dropdown = container.querySelector('#drop-down');
+        const buttons = dropdown.querySelectorAll('button');
+
+        // Set up dropdown styling
+        dropdown.style.position = 'absolute';
+        dropdown.style.display = 'none';
+        dropdown.style.zIndex = '10';
+        dropdown.style.border = 'border'
+        dropdown.style.width = `${mainInput.offsetWidth}px`; // Match input width
+        dropdown.style.top = `${mainInput.offsetHeight + 25}px`; // Position below input
+        container.style.position = 'relative'; // For absolute positioning context
+
+        // Show dropdown when input is focused
+        mainInput.addEventListener('focus', function(e) {
+            if(mainInput.id == e.target.id) dropdown.style.display = 'none';
+            // Hide all other dropdowns
+            inputContainers.forEach(otherContainer => {
+                if (otherContainer !== container) {
+                    otherContainer.querySelector('#drop-down').style.display = 'none';
+                }
+            });
+            // Show this dropdown and ensure correct positioning
+            dropdown.style.display = 'block';
+            dropdown.style.width = `${mainInput.offsetWidth}px`; // Update width in case of resize
+        });
+
+        // Handle button clicks
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                mainInput.value = button.textContent.trim();
+                dropdown.style.display = 'none';
+            });
+        });
+
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!container.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Optional: Handle window resize to keep dropdown width matched
+        window.addEventListener('resize', function() {
+            dropdown.style.width = `${mainInput.offsetWidth}px`;
+        });
+    });
+
+
+
+
+
+
+    });
+
+        
+
+    let firShow = false;
+function handleFir() {
+    if (!firShow) {
+        document.getElementById('half-1').style.display = 'none';
+        document.getElementById('full-1').style.display = 'block';
+        document.getElementById('btn-1').textContent = "Read Less";
+        firShow = true;
+    } else {
+        document.getElementById('half-1').style.display = 'block';
+        document.getElementById('full-1').style.display = 'none';
+        document.getElementById('btn-1').textContent = "Read More";
+        firShow = false;
+    }
+}
+
+let secShow = false;
+function handleSec() {
+    if (!secShow) {
+        document.getElementById('half-2').style.display = 'none';
+        document.getElementById('full-2').style.display = 'block';
+        document.getElementById('btn-2').textContent = "Read Less";
+        secShow = true;
+    } else {
+        document.getElementById('half-2').style.display = 'block';
+        document.getElementById('full-2').style.display = 'none';
+        document.getElementById('btn-2').textContent = "Read More";
+        secShow = false;
+    }
+}
+    </script>
+
+
 </html>
