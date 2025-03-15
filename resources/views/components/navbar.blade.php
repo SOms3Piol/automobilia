@@ -16,12 +16,21 @@
                     </div>
                     <a href="{{ route('home') }}">Search</a>
                 </div>
-                <div class="flex gap-3 text-blue-700 font-medium text-xl max-[850px]:hidden ">
-                    <a href="{{ route('login') }}">Login</a>
-                    <span class="bg-blue-700 px-[1px]"></span>
-                    <a href="{{ route('register') }}">Register</a>
-                </div>
-
+                @if (Auth::check())
+                    <div class="flex gap-3 text-blue-700 font-medium text-xl max-[850px]:hidden ">
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="cursor-pointer" type="submit">logout</button>
+                        </form>
+                    </div>
+               
+                @else
+                    <div class="flex gap-3 text-blue-700 font-medium text-xl max-[850px]:hidden ">
+                        <a href="{{ route('login') }}">Login</a>
+                        <span class="bg-blue-700 px-[1px]"></span>
+                        <a href="{{ route('register') }}">Register</a>
+                    </div>
+                @endif
                     <button class="md:hidden">
                         <i class="fa-solid fa-bars "></i>
                     </button>
