@@ -11,6 +11,7 @@
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
         @vite('resources/css/app.css')
+        @vite('resources/js/app.js')
     </head>
     <body>
         <x-navbar></x-navbar>
@@ -42,60 +43,32 @@
                         </label>
                     </div>
 
-                    <div id="1" class="input relative">
-                        <label class="px-1" for="make">Select By Make</label>
-                        <input id="make" class="border cursor-pointer border-slate-300 rounded w-full px-3 py-2" type="text" placeholder="Make">
-                        <div id="drop-down" class="bg-white">
-                            <input class="border border-slate-300 w-full mt-1 px-3 " type="text">
-                            <div class="h-[150px] overflow-y-scroll flex flex-col items-start">
-                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
-                                    MINI
-                                </button>
-                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
-                                    Ford
-                                </button>
-                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
-                                    Mustang
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="2" class="input relative">
-                        <label class="px-1" for="make">Select By Model</label>
-                        <input id="make" class="border cursor-pointer  border-slate-300 rounded w-full px-3 py-2" type="text" placeholder="Model">
-                        <div id="drop-down" class="bg-white">
-                            <input class="border border-slate-300 w-full mt-1 px-3 " type="text">
-                            <div class="h-[150px] overflow-y-scroll flex flex-col items-start">
-                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
-                                    Cooper
-                                </button>
-                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
-                                    Hardtop
-                                </button>
-                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
-                                    Mustang
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="3" class="input relative">
-                        <label class="px-1" for="make">Select By Year</label>
-                        <input id="make" class="border cursor-pointer border-slate-300 rounded w-full px-3 py-2" type="text" placeholder="Year">
-                        <div id="drop-down" class="bg-white">
-                            <input class="border border-slate-300 w-full mt-1 px-3 " type="text">
-                            <div class="h-[150px] overflow-y-scroll flex flex-col items-start">
-                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
-                                    2005
-                                </button>
-                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
-                                    2006
-                                </button>
-                                <button class="hover:bg-blue-950 hover:text-white w-full text-left py-3 px-1">
-                                    2007
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    @php
+                        $carMakes = ['Ford', 'Mustang', 'Honda'];
+                        $carModel = ['GT' , 'V4' , 'Civic'];
+                        $carYear = ['2005' , '2004' , '2007']
+                    @endphp
+
+                    <x-input 
+                        :id="1" 
+                        :inputId="'make'" 
+                        :placeholder="'Make'" 
+                        :options="$carMakes" 
+                    />
+                    <x-input 
+                        :id="2" 
+                        :inputId="'model'" 
+                        :placeholder="'Model'" 
+                        :options="$carModel" 
+                    />
+                    <x-input 
+                        :id="3" 
+                        :inputId="'year'" 
+                        :placeholder="'Year'" 
+                        :options="$carYear" 
+                    />
+
+
 
 
                     <button type="submit" class="bg-blue-700 border-none outline-none cursor-pointer w-full py-3 text-white text-xl mt-3 rounded" >Search</button>
@@ -200,69 +173,7 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    // Get all input containers
-    const inputContainers = document.querySelectorAll('.input');
-
-    inputContainers.forEach(container => {
-        const mainInput = container.querySelector('input[type="text"]');
-        const dropdown = container.querySelector('#drop-down');
-        const buttons = dropdown.querySelectorAll('button');
-
-        // Set up dropdown styling
-        dropdown.style.position = 'absolute';
-        dropdown.style.display = 'none';
-        dropdown.style.zIndex = '10';
-        dropdown.style.border = 'border'
-        dropdown.style.width = `${mainInput.offsetWidth}px`; // Match input width
-        dropdown.style.top = `${mainInput.offsetHeight + 25}px`; // Position below input
-        container.style.position = 'relative'; // For absolute positioning context
-
-        // Show dropdown when input is focused
-        mainInput.addEventListener('focus', function(e) {
-            if(mainInput.id == e.target.id) dropdown.style.display = 'none';
-            // Hide all other dropdowns
-            inputContainers.forEach(otherContainer => {
-                if (otherContainer !== container) {
-                    otherContainer.querySelector('#drop-down').style.display = 'none';
-                }
-            });
-            // Show this dropdown and ensure correct positioning
-            dropdown.style.display = 'block';
-            dropdown.style.width = `${mainInput.offsetWidth}px`; // Update width in case of resize
-        });
-
-        // Handle button clicks
-        buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                mainInput.value = button.textContent.trim();
-                dropdown.style.display = 'none';
-            });
-        });
-
-        // Hide dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!container.contains(e.target)) {
-                dropdown.style.display = 'none';
-            }
-        });
-
-        // Optional: Handle window resize to keep dropdown width matched
-        window.addEventListener('resize', function() {
-            dropdown.style.width = `${mainInput.offsetWidth}px`;
-        });
-    });
-
-
-
-
-
-
-    });
-
         
-
     let firShow = false;
 function handleFir() {
     if (!firShow) {
@@ -296,3 +207,4 @@ function handleSec() {
 
 
 </html>
+c

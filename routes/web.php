@@ -3,33 +3,19 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name("home");
+Route::view('/' , 'welcome')->name("home");
 
+Route::view('/contact' , 'contact') ->name('contact');
 
-Route::get('/contact' , function () {
-    return "Contact use page";
-}) ->name('contact');
+Route::view('/tos' , 'tos') ->name('tos');
 
-Route::get('/tos', function () {
+Route::view('/blogs','blogs')->name('blogs');
 
-    return "Terms of Services";
-}) ->name('tos');
+Route::view('/login','login')->name('login');
 
-Route::get("/blogs" , function(){
-    return "Blgos Pages";
-})->name('blogs');
+Route::view('/register' , 'register')->name('register');
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
-
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
-
-
+Route::view('/vehicles' , 'products') ->name('vehicles');
 
 
 
