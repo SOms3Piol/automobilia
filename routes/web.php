@@ -17,6 +17,8 @@ Route::view('/register' , 'register')->name('register');
 
 Route::view('/vehicles' , 'products') ->name('vehicles');
 
+Route::view('/vehicle' , 'singleVehicle')->name('single.vehicle');
+
 
 
 
