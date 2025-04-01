@@ -5,11 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/' , 'welcome')->name("home");
 
-Route::view('/contact' , 'contact') ->name('contact');
-
-Route::view('/tos' , 'tos') ->name('tos');
-
-Route::view('/blogs','blogs')->name('blogs');
+Route::view('/dashboard' , 'dashboard')->name('user.dashboard');
 
 Route::view('/login','login')->name('login');
 
@@ -19,6 +15,21 @@ Route::view('/vehicles' , 'products') ->name('vehicles');
 
 Route::view('/vehicle' , 'singleVehicle')->name('single.vehicle');
 
+Route::get('/dashboard/setting' , function(){
+    return "User setting pages";
+})->name('user.setting');
+
+Route::get('/blogs' , function(){
+    return "blogs pagee";
+})->name('blogs');
+
+Route::get('/tos' , function(){
+    return  "tos page";
+})->name('tos');
+
+Route::get('/contact' , function(){
+    return "contact form page";
+})->name('contact');
 
 
 
@@ -27,4 +38,4 @@ Route::view('/vehicle' , 'singleVehicle')->name('single.vehicle');
 // Api routes
 Route::post('/register' , [UserController::class,'register'])->name("user.create");
 Route::post("/login", [UserController::class,"login"])->name("user.auth");
-Route::post('/logout' , [UserController::class,"logout"])->name('logout');
+Route::post('/logout' , [UserController::class,"logout"])->name('user.logout');
