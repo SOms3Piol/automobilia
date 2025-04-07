@@ -14,11 +14,19 @@ return new class extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('title');
-            $table->string('price');
             $table->string('thumbnail');
+            $table->string('title');
+            $table->integer('price');
             $table->string('description');
+            $table->string('category');
+            $table->string('modal');
+            $table->string('location');
+            $table->string('make');
+            $table->integer('year');
             $table->string('manufacture_country');
+            $table->integer('mileage');
+            $table->string('exterior_color');
+            $table->string('interior_color');
             $table->string('engine_type');
             $table->string('transmission');
             $table->string('engine_capacity');

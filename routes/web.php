@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/' , 'welcome')->name("home");
@@ -30,6 +31,12 @@ Route::get('/tos' , function(){
 Route::get('/contact' , function(){
     return "contact form page";
 })->name('contact');
+
+
+
+Route::resource('vehicle', VehicleController::class)
+    ->except(['show'])
+    ->middleware('auth');
 
 
 

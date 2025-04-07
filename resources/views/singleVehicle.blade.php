@@ -64,19 +64,23 @@
                                 <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
-                                <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Mileage</div>
+                                <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Transmission</div>
                                 <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
-                                <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Mileage</div>
+                                <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Exterior Color</div>
                                 <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
-                                <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Mileage</div>
+                                <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Interior Color</div>
                                 <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
-                                <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Mileage</div>
+                                <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Engine Capacity</div>
+                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 mt-3 " >
+                                <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Engine Type</div>
                                 <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
                             </div>
                             

@@ -46,7 +46,7 @@ class User extends Authenticatable
         ];
     }
 
-    protected function vehicles(){
+    public function vehicles(){
         return $this->hasMany(Vehicle::class);
     }
     

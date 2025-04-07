@@ -17,13 +17,11 @@
                     <a href="{{ route('home') }}">Search</a>
                 </div>
                 @if (Auth::check())
-                    <div class="flex gap-3 text-blue-700 font-medium text-xl max-[850px]:hidden ">
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button class="cursor-pointer" type="submit">logout</button>
-                        </form>
-                    </div>
-               
+                <div class="flex  justify-between px-6 bg-white shadow-sm " >
+                        <a href="{{ route('user.dashboard') }}" class=" cursor-pointer py-2 ml-auto" >
+                            <img width="49px" src="https://automobiliard.com/user/resources/images/d-avatar.jpg" alt="avatar user picture">
+                        </a>
+                    </div>               
                 @else
                     <div class="flex gap-3 text-blue-700 font-medium text-xl max-[850px]:hidden ">
                         <a href="{{ route('login') }}">Login</a>
