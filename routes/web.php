@@ -13,7 +13,7 @@ Route::view('/login','login')->name('login');
 Route::view('/register' , 'register')->name('register');
 
 Route::get('/vehicles', [SearchController::class,'index'])->name('vehicles');
-
+Route::get('/search',[SearchController::class,'search'])->name('search.vehicle');
 
 
 

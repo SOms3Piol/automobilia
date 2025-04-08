@@ -6,11 +6,11 @@
                 <div class="flex gap-8 text-xl text-blue-700 font-medium max-[850px]:hidden">
                     <a href="{{ route('home') }}">Home</a>
                     <div name="nav-option" id="nav-opt" class="w-fit relative group ">
-                        <a value="cars" selected class="w-fit px-8 cursor-pointer">Buy</a>
-                        <div class="hidden absolute top-6.5 px-10   py-2 rounded border-t shadow-xl hover:block group-hover:block bg-white transition">
-                            <a value="used" class="whitespace-nowrap" >Used Cars</a>
-                            <a value="new">New Cars</a>
-                            <a value="sports">Sports Cars</a>
+                        <button value="cars" selected class=" peer w-fit px-8 cursor-pointer">Buy</button>
+                        <div class="hidden group-hover:flex group-hover:flex-col group-hover:gap-3 absolute top-9 px-10   py-2 rounded border-t shadow-xl   bg-white transition">
+                            <a href="/search?category=used" value="used" class="whitespace-nowrap" >Used Cars</a>
+                            <a href="/search?category=new" value="new">New Cars</a>
+                            
                         </div>
                         
                     </div>

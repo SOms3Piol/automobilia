@@ -13,6 +13,21 @@ class SearchController extends Controller{
         return view('products',compact('vehicles','total'));
         
     }
+    public function search(Request $request){
+
+        $queryParams = $request->all();
+
+        $query = Vehicle::query();
+
+        foreach($queryParams as $key => $value){
+            if(!empty($value)) $query->where($key, $value);
+        }
+
+        $vehicles = $query->get();
+        $total = $vehicles->count();
+        
+        return view('search' , compact('vehicles' , 'queryParams' , 'total'));
+    }
 }
 
 

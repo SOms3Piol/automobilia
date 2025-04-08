@@ -16,7 +16,7 @@
     
         <section class="bg-[#f7f9faff] py-18  " >
             <div class="container mx-auto" >
-                <h2 class="text-4xl font-semibold" >All Cars</h2>
+                <h2 class="text-4xl font-semibold" >{{ !empty($queryParams['category']) ?  $queryParams['category']  : "All" }} Cars</h2>
                 <div class="flex items-center gap-1 mt-3 " >
                     <span class="text-blue-700" >Home </span>
                     / 
@@ -26,10 +26,10 @@
             </div>
 
 
-            <div class=" grid grid-cols-4 mt-8 gap-4 container items-start mx-auto h-full " >
+            <div class=" grid grid-cols-4 gap-4 container items-start mx-auto h-full " >
                 <div class=" " >
-                    <form action="{{ route('search.vehicle') }}" class="bg-white p-3 rounded-md flex flex-col gap-4" >
-                        <div class="flex text-left rounded overflow-hidden " >
+                    <form action="{{ route('search.vehicle') }}  " method="get" class="bg-white p-3 rounded-md flex flex-col gap-4" >
+                    <div class="flex text-left rounded overflow-hidden " >
                             <input type="radio" name="category" value="used" class="w-full focus:bg-pink-600 focus:text-white  bg-slate-200 p-3 "> Used 
                             <input type="radio" name="category" value="new" class="w-full focus:bg-pink-600 focus:text-white bg-slate-200 p-3">New
                         </div>
@@ -56,13 +56,28 @@
                             :placeholder="'Select Year'" 
                             :options="$carYear" 
                         />
-                        <button class="bg-blue-700 rounded text-white py-3" >Search</button>
+                        <button type="submit" class="bg-blue-700 rounded text-white py-3" >Search</button>
                     </form>
                 </div>
-                <div class=" col-span-3    " >
+                <div class=" col-span-3   " >
+                    <div class="bg-white px-2 py-3 rounded-md" >
+                        <div class="flex items-center gap-5 flex-wrap" >
+                            @foreach ($queryParams as $key => $value )
+                                
+                            @if(!empty($value))
+                                <button type="button"  id="{{ $key }}" class=" button   bg-pink-600 px-3 rounded-md py-2 text-white flex items-center w-fit gap-1" >{{ $value }} 
+                                    <i class="fa-solid fa-circle-xmark"></i>  
+                                </button>
+                            @endif
+                            @endforeach
+                        </div>
+                        <a class="mt-2 block text-blue-700" href="{{ route('vehicles') }}">clear filters</a>
+                    </div>
+
                     
                     @if ($total == 0)
-                        <div class="rounded-md  bg-white  top-0 w-full h-full  " >
+                    
+                        <div class="rounded-md  bg-white mt-8  top-0 w-full h-full  " >
                             <div class="h-full flex justify-center" >
                                 <img width="500px" height="500px" src="https://automobiliard.com/user/resources/images/Nodata.png" alt="">
                             </div>
@@ -103,7 +118,35 @@
 
         </section>
 
+       
+
 
     <x-footer></x-footer>
+
+    
 </body>
-</html>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filters = document.querySelectorAll('.button')
+            filters.forEach(button => {
+                button.addEventListener('click' , (e)=>{
+                    let url = new URL(window.location.href)
+               
+                    var search_params = url.searchParams;
+
+// new value of "id" is set to "101"
+                    search_params.set(e.target.id, "");
+
+                    // change the search property of the main url
+                    url.search = search_params.toString();
+
+                    // the new url string
+                    var new_url = url.toString();
+
+                    // output : http://demourl.com/path?id=101&topic=main
+                    window.location.href = new_url
+                })
+            })
+        })
+    </script>
+</html> 
