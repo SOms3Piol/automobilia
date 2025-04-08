@@ -17,7 +17,7 @@
         <a href="{{ route('home') }}"  >
             <img width="155px" height="155px" src="https://automobiliard.com/user/resources/images/AMnav.png" alt=" imgage logo">
         </a>
-        <a href="{{ route('register') }}" class="hover:underline" >Login</a>
+        <a href="{{ route('login') }}" class="hover:underline" >Login</a>
     </header>
 
     <section class="h-full py-8 w-full bg-slate-200 flex justify-center items-center" >
@@ -44,6 +44,7 @@
                     @enderror
                     </span>
             </div>
+            
             <div class="flex flex-col gap-3" >
                 <label for="password">Password</label>
                 <input class=" px-3 py-2 rounded border outline-none border-slate-500 focus:border-blue-700" type="password" name="password" placeholder="Password">

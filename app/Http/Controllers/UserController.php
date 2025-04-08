@@ -14,10 +14,10 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:users,name', // Assuming 'name' replaces 'username'
+            'name' => 'required|string|max:255|unique:users,name', 
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
-            'password_confirmation' => 'required', // Ensure confirmation is provided
+            'password_confirmation' => 'required', 
         ], [
             'name.required' => 'Name is required',
             'name.unique' => 'This name is already taken.',
@@ -29,6 +29,7 @@ class UserController extends Controller
             'password.min' => 'Password must be at least 8 characters long.',
             'password.confirmed' => 'Passwords do not match.',
             'password_confirmation.required' => 'Please confirm your password.',
+    
         ]);
 
         if ($validator->fails()) {
@@ -38,7 +39,8 @@ class UserController extends Controller
         User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'), // Mutator hashes it
+            'password' => $request->input('password'), 
+            'phoneNumber' => $request->input('phoneNumber')
         ]);
 
         return redirect()->route('login')->with('success', 'Registration successful!');
@@ -48,7 +50,8 @@ class UserController extends Controller
         
         $data = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            
         ])->validate();
     
        

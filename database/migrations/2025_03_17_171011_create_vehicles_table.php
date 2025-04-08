@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('transmission');
             $table->string('engine_capacity');
             $table->json('additional_feature');
+            $table->string('phone_number');
             $table->timestamps();
         });
     }

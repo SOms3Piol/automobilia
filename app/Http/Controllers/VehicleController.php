@@ -18,7 +18,7 @@ class VehicleController extends Controller
         $user = $request->user();
 
         $vehicles = $user->vehicles()
-            ->select(['id','title', 'price', 'modal', 'make', 'mileage', 'location'])
+            ->select(['id', 'thumbnail','title', 'price', 'modal', 'make', 'mileage', 'location'])
             ->get();
         return view('vehicle.index', compact('vehicles'));
     }
@@ -28,9 +28,6 @@ class VehicleController extends Controller
      */
     public function create()
     {
-
-        
-
 
         return view('vehicle.create' );
     }
@@ -61,6 +58,7 @@ class VehicleController extends Controller
             $filename = uniqid("thumbnail_", true) . "." . $thumbnail->getClientOriginalExtension();
             $filepath = $thumbnail->storeAs('storage',$filename , 'public');  
         }
+       
         Vehicle::create([
             'user_id' => $request->user()->id,
             'title' => $request->input('title'),
@@ -75,11 +73,13 @@ class VehicleController extends Controller
             'transmission' => $request->input('transmission'),
             'manufacture_country' => $request->input('manufacture_country'),
             'category' => $request->input('category'),
+            'phone_number' => $request->input('phone_number'),
             'engine_capacity' => $request->input('engine_capacity'),
             'engine_type' => $request->input('engine_type'),
             'location' => $request->input('location'),
             'additional_feature' => json_encode($request->input('additional_feature')),
             'thumbnail' => $filepath,
+            
 
         ]);
 
@@ -94,6 +94,14 @@ class VehicleController extends Controller
     public function show(string $id)
     {
         //
+        $vehicle = Vehicle::find($id);
+
+        if(!$vehicle){
+            abort(404,'Data not found');
+        }
+        $user = $vehicle->user()->select('name')->first();;
+        
+        return view('vehicle.show', compact('vehicle', 'user'));
         
     }
 
@@ -112,16 +120,33 @@ class VehicleController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $path = storage_path('app/public/' . $request->thumbnail);
-         if(!file_exists($path)){
-            $file = $request->thumbnail;
-            $filename = uniqid("thumbnail_" , true) . "." . $file->getClientOriginalExtension();
-           $filepath = $file->saveAs('storage', $filename ,'public');
-         }else{
-            $filepath = $request->thumbnail;
-         }
+        $vehicle = Vehicle::find($id);
+        if(!$vehicle){
+            abort(404,'Vehicle not found.');
 
-         Vehicle::update([
+        }
+
+        $oldFile = $vehicle->thumbnail;
+        if($request->hasFile('thumbnail')){
+
+            
+            if(file_exists($oldFile)){
+                unlink($oldFile);
+            }
+            $thumbnail = $request->file('thumbnail');
+            $filename = uniqid("thumbnail_", true) . "." . $thumbnail->getClientOriginalExtension();
+            $filepath = $thumbnail->storeAs('storage',$filename , 'public'); 
+            $vehicle->update([
+                'thumbnail' => $filepath
+            ]);
+        }else{
+            $vehicle->update([
+                'thumbnail' => $oldFile
+            ]);
+        }
+         
+
+        $vehicle->update([
             'user_id' => $request->user()->id,
             'title' => $request->input('title'),
             'price' => $request->input('price'),
@@ -139,7 +164,7 @@ class VehicleController extends Controller
             'engine_type' => $request->input('engine_type'),
             'location' => $request->input('location'),
             'additional_feature' => json_encode($request->input('additional_feature')),
-            'thumbnail' => $filepath,
+            'phone_number' => $request->input('phoneNumber')
          ]);
 
 
@@ -152,5 +177,16 @@ class VehicleController extends Controller
     public function destroy(string $id)
     {
         //
+        $vehicle = Vehicle::find($id);
+        if(!$vehicle){
+            abort('404' , 'Not Found.');
+        }
+
+        unlink(storage_path('app/public/' . $vehicle->thumbnail));
+
+
+        $vehicle->delete();
+
+        return redirect()->route('vehicle.index');
     }
 }

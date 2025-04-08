@@ -3,11 +3,11 @@
         <p>No Vehicles are Published...</p>
     @else
         @foreach ($vehicles as $vehicle)
-            <div class="grid grid-cols-3 gap-3 px-3 py-5">
+            <div class="grid grid-cols-2 max-md:grid-cols-1 gap-3 px-3 py-5">
                 <div class="card bg-white shadow-md rounded-md px-3 py-2">
                     <div class="bg-zinc-800 h-[350px] rounded overflow-hidden">
                         <img class="object-fit shadow w-full h-full object-center rounded-sm" 
-                             src="{{ asset( '/storage' . $vehicle->thumbnail) }}" 
+                             src="{{ asset( 'storage/' . $vehicle->thumbnail) }}" 
                              alt="Vehicle Thumbnail">
                     </div>
                     <div class="mt-3">

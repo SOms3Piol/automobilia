@@ -14,12 +14,12 @@
                         </div>
                         
                     </div>
-                    <a href="{{ route('home') }}">Search</a>
+                    <a href="{{ route('vehicles') }}">Search</a>
                 </div>
                 @if (Auth::check())
-                <div class="flex  justify-between px-6 bg-white shadow-sm " >
-                        <a href="{{ route('user.dashboard') }}" class=" cursor-pointer py-2 ml-auto" >
-                            <img width="49px" src="https://automobiliard.com/user/resources/images/d-avatar.jpg" alt="avatar user picture">
+                <div class="flex  justify-between  " >
+                        <a href="{{ route('user.dashboard') }}" class=" cursor-pointer  ml-auto" >
+                            <img class="mix-blend-multiply" width="49px" src="https://automobiliard.com/user/resources/images/d-avatar.jpg" alt="avatar user picture">
                         </a>
                     </div>               
                 @else

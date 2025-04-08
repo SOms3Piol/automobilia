@@ -3,26 +3,18 @@
 
     <div class="p-8" >
         <div class="text-center" >
+            <a href="{{ route('vehicle.index') }}" class="text-blue-700">Back</a>
             <h2 class="text-2xl  font-semibold" >Edit The Vehicle {{ $vehicle->title }}</h2>
             <p class="text-slate-600" >Cars are not just transportation; they are an expression of who we are.</p>
         </div>
         <form action="{{ route('vehicle.update' , $vehicle->id) }}" method="post" class="my-10  max-w-[750px] mx-auto " enctype="multipart/form-data">
             @csrf
-            @method('UPDATE')
+            @method('PUT')
             <div class="bg-zinc-800 h-[350px] rounded overflow-hidden relative " >
-                @error('image')
-                    <p>{{ $message }}</p>
-                @enderror
-                @error('mimes')
-                    <p>{{ $message }}</p>
-                @enderror
-                @error('required')
-                    <p>{{ $message }}</p>
-                @enderror
                 <label for="imgUpload" class="absolute top-0 w-full h-full cursor-pointer z-10" >
-                    <img class="object-fit shadow w-full h-full object-center rounded-sm hover:opacity-[.5] transition " src="{{asset('storage' . $vehicle->thumbnail)}}" alt="Placeholder Image">
+                    <img id="previewImage" class="object-fit shadow w-full h-full object-center rounded-sm hover:opacity-[.5] transition " src="{{asset('storage/' . $vehicle->thumbnail)}}" alt="Placeholder Image">
                 </label>
-                <input class="opacity-0" type="file" value="{{ $vehicle->thumbnail }}"  name="thumbnail" accept=".jpg, .jpeg , .webp , .png" id="imgUpload" required >
+                <input class="opacity-0" type="file" value="{{ $vehicle->thumbnail }}"  name="thumbnail" accept=".jpg, .jpeg , .webp , .png" id="imgUpload"  >
             </div>
             <div class=" my-7 text-2xl font-semibold" >
             <h2>Main Information.</h2>
@@ -56,6 +48,13 @@
                 <div class="flex flex-col gap-1 w-full" >
                     <label for="title">Location</label>
                     <input class="border  border-slate-500 bg-white py-1 px-2 outline-none rounded shadow " type="text" placeholder="e.g Azua,Azua" value="{{ $vehicle->location }}" name="location" required >
+                </div>
+            </div>
+            <div class="flex gap-3 my-7 " >
+               
+                <div class="flex flex-col gap-1 w-full" >
+                    <label for="title">Phone Number</label>
+                    <input class="border  border-slate-500 bg-white py-1 px-2 outline-none rounded shadow " type="text" placeholder="e.g 03481133456" value="{{ $vehicle->phoneNumber }}" name="phone_number" required >
                 </div>
             </div>
 
@@ -188,6 +187,18 @@
             const parentEl = e.target.closest('.relative');
             parentEl.remove();
         })
+
+        document.getElementById('imgUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('previewImage');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => preview.src = e.target.result;
+                reader.readAsDataURL(file);
+            }
+        });
+
 
 
            

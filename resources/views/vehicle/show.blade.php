@@ -19,36 +19,44 @@
             <div class="container mx-auto">
                 <p class="text-blue-700 text" ><i class="fa-solid fa-arrow-left"></i> Return to search</p>
                 <div class="mt-7 flex flex-col gap-8" >
-                    <h2 class="text-4xl font-semibold" >2023 MINI Cooper GP JCW</h2>
+                    <h2 class="text-4xl font-semibold" >{{$vehicle->title}}</h2>
                     <div class="flex gap-3 items-center" >
                         <span class=" bg-slate-300 text-blue-700 rounded-full h-[33px] w-[33px] flex justify-center items-center" ><i class="fa-solid fa-location-dot "></i></span>
-                        <p class="text-slate-500 text-xl"  > Azua,Sabana Yegua</p>
+                        <p class="text-slate-500 text-xl"  > {{$vehicle->location}}</p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-5 my-5">
                     <div class="left-block" >
                         <div class="rounded-md overflow-hidden" >
-                            <img src="https://automobiliard.com/storage/ad/images/HPr1743068075.png" class="object-fit w-full h-full" alt="">
+                            <img src="{{ asset('storage/' . $vehicle->thumbnail)  }}" class="object-fit w-full h-full" alt="">
                         </div>
                         <div class="w-[90px] h-[70px] rounded mt-5 overflow-hidden border-2 border-blue-400" >
-                            <img  class="object-fit w-full h-full" src="https://automobiliard.com/storage/ad/images/HPr1743068075.png" alt="">
+                            <img  class="object-fit w-full h-full" src="{{ asset('storage/' . $vehicle->thumbnail)  }}"  alt="">
                         </div>
                         <div class="bg-white px-8 py-5 rounded-md my-5" >
                             <h2 class="text-2xl" >Additional Features</h2>
                             <div class="grid grid-cols-2 justify-between mt-3" >
-                                <span class="font-thin" ><i class="fa-solid fa-check text-pink-500 "></i> Air bags</span>
-                                <span class="font-thin" ><i class="fa-solid fa-check text-pink-500 "></i> Air bags</span>
+                                @php
+                                    $array = json_decode($vehicle->additional_feature);
+                                    foreach($array as $feature){
+                                        echo "
+                                            <span class='font-thin' ><i class='fa-solid fa-check text-pink-500 '></i> $feature</span>
+                                        ";
+                                    }
+                                @endphp
+                                
+                                
                             </div>
                         </div>
                         <div class="flex flex-col gap-3 py-5 px-8 bg-white rounded-md" >
                             <h2 class="text-2xl " >Vehicle Overview</h2>
-                            <p class="leading-6 " >I am Selling MINI Cooper GP JCW 2014.My Vehicle is All Wheel.I am selling New car .I am Selling MINI Cooper GP JCW 2014 of diesel.Interior color is Red.This car is automatic.This car is Coupe.Exterior color is Red.This car is not certified.</p>
+                            <p class="leading-6 text-base text-slate-500 " >{{ $vehicle->description  }}</p>
                         </div>
                     </div>
                     <div class="right-block" >
                         <div class="bg-zinc-800 text-white text-center py-5 rounded-md " >
-                            <h2 class="text-3xl font-bold " >USA$ 1,42,00,66</h2>
+                            <h2 class="text-3xl font-bold " >USA$ {{ $vehicle->price  }}</h2>
                             <a href="#" class="bg-pink-500 px-3 py-1 text-xl font-semibold rounded block mt-3 w-fit mx-auto" >Chat with Dealer</a>
                         </div>
 
@@ -57,31 +65,31 @@
                             <h2 class="text-2xl not-[]:" >Car details</h2>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
                                 <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Manufactured in country</div>
-                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >pakistan</div>
+                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >{{$vehicle->manufacture_country}}</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
                                 <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Mileage</div>
-                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
+                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >{{ $vehicle->mileage }} km</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
                                 <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Transmission</div>
-                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
+                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >{{ $vehicle->transmission }}</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
                                 <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Exterior Color</div>
-                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
+                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >{{ $vehicle->exterior_color  }}</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
                                 <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Interior Color</div>
-                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
+                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >{{ $vehicle->interior_color }}</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
                                 <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Engine Capacity</div>
-                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
+                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >{{$vehicle->engine_capacity}}</div>
                             </div>
                             <div class="flex items-center justify-between gap-4 mt-3 " >
                                 <div class="bg-[#F7F7F7] text-[#7A7A7A] px-8 py-3 rounded text-base font-semibold" >Engine Type</div>
-                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >4650km</div>
+                                <div class="bg-[#FCFCFC] text-[#142032] px-3 py-3 rounded" >{{ $vehicle->engine_type }}</div>
                             </div>
                             
                         </div>
@@ -89,7 +97,7 @@
                             <h2 class="text-2xl" >Automotive Avenue</h2>
                             <div class="flex gap-3 items-center" >
                                 <span><i class="fa-regular fa-user"></i></span>
-                                <a href="#"  class="text-blue-700">Ben</a>
+                                <a href="#"  class="text-blue-700">{{ $user->name }}</a>
                             </div>
                             <div class="flex items-center gap-3" >
                                 <span><i class="fa-solid fa-globe"></i></span>
@@ -97,11 +105,11 @@
                             </div>
                             <div class="flex items-center gap-3" >
                                 <span><i class="fa-solid fa-phone"></i></span>
-                                <span class="text-slate-600" >+1814 351 1254</span>
+                                <span class="text-slate-600" >{{ $vehicle->phoneNumber }}</span>
                             </div>
                             <div class="flex items-center gap-3" >
                                 <span><i class="fa-solid fa-location-dot"></i></span>
-                                <span class="text-slate-600" >Tamayo,Bahoruco</span>
+                                <span class="text-slate-600" >{{ $vehicle->location  }}</span>
                             </div>
                         </div>
                     </div>

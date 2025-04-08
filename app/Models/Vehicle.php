@@ -25,7 +25,8 @@ class Vehicle extends Model
         'engine_capacity',
         'engine_type',
         'additional_feature',
-        'description'
+        'description',
+        'phone_number'
    ];
     
     protected function casts(){

@@ -19,7 +19,7 @@
                     <p>{{ $message }}</p>
                 @enderror
                 <label for="imgUpload" class="absolute top-0 w-full h-full cursor-pointer z-10" >
-                    <img class="object-fit shadow w-full h-full object-center rounded-sm hover:opacity-[.5] transition " src="https://picsum.photos/300/200" alt="Placeholder Image">
+                    <img id="previewImage" class="object-fit shadow w-full h-full object-center rounded-sm hover:opacity-[.5] transition " src="https://picsum.photos/300/200" alt="Placeholder Image">
                 </label>
                 <input class="opacity-0" type="file" name="thumbnail" accept=".jpg, .jpeg , .webp , .png" id="imgUpload" required >
             </div>
@@ -55,6 +55,12 @@
                 <div class="flex flex-col gap-1 w-full" >
                     <label for="title">Location</label>
                     <input class="border  border-slate-500 bg-white py-1 px-2 outline-none rounded shadow " type="text" placeholder="e.g Azua,Azua" name="location" required >
+                </div>
+            </div>
+            <div class="flex gap-3 my-7 " >
+                <div class="flex flex-col gap-1 w-full" >
+                    <label for="title">Phone Number</label>
+                    <input class="border  border-slate-500 bg-white py-1 px-2 outline-none rounded shadow " type="text" placeholder="e.g 032131231" name="phone_number"  required >
                 </div>
             </div>
 
@@ -161,13 +167,33 @@
                 div.remove();  
             }); 
 
-        // Append the input and delete button to the wrapper div
-        div.appendChild(input);
-        div.appendChild(button);
+            // Append the input and delete button to the wrapper div
+            div.appendChild(input);
+            div.appendChild(button);
 
-        // Append the wrapper div to the container
-        container.appendChild(div);
-    }
+            // Append the wrapper div to the container
+            container.appendChild(div);
+        }
+
+
+
+
+            
+        document.getElementById('imgUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0]; 
+            if (file) {
+                const reader = new FileReader(); 
+
+                
+                reader.onload = function(e) {
+                    const previewImage = document.getElementById('previewImage');
+                    previewImage.src = e.target.result; 
+                };
+
+                reader.readAsDataURL(file); 
+            }
+        });
+
 
         });
     </script>
