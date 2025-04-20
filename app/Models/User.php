@@ -50,5 +50,9 @@ class User extends Authenticatable
     public function vehicles(){
         return $this->hasMany(Vehicle::class);
     }
+
+    public function purchasedPlan(){
+        return $this->hasOne(PurchasedPlan::class);
+    }
     
 }

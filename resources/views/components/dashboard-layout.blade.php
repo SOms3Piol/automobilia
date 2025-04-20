@@ -26,28 +26,26 @@
             <button onclick="closeSidebar()" class="cursor-pointer min-[850px]:hidden" ><i class="fa-solid fa-xmark border px-0.5 rounded-full"></i></button>
         </div>
         <div class="flex flex-col gap-5 px-3 mt-8" >
-            <a id="dashboard" href="{{ route('user.dashboard')}}" class="focus:text-blue-700 transition all "> <i class="fa-solid fa-layer-group mr-2 "></i> Dashboard</a>
+            <a id="dashboard" href="{{ route('user.dashboard')}}" class=" transition all {{ request()->routeIs('user.dashboard') ? 'text-blue-700' : "" }} "> <i class="fa-solid fa-layer-group mr-2 "></i> Dashboard</a>
             <div >
-                 <button onclick="handleClick(event)" id="manage_ads"  class="focus:text-blue-700 transition all cursor-pointer " >
+                 <a  href="{{ route('dealer.ads') }}" class="focus:text-blue-700 transition all cursor-pointer {{ request()->routeIs('dealer.ads') ? 'text-blue-700' : "" }} " >
                     <i class="fa-solid fa-rectangle-ad mr-2"></i> 
                     Manage Ads
-                 </button>
-                 <div id="ad-opt" class=" hidden flex-col gap-3 items-start px-7 py-2" >
-                     <button>Publish ad</button>
-                     <button>All ads</button>
-                 </div>
+                 </a>
+
             </div>
             <div>
-                 <button onclick="handleClick(event)" id="manage_cars"  class="focus:text-blue-700 transition all " >
+                 <button onclick="handleClick(event)" id="manage_cars"  class=" focus:text-blue-700 transition all  {{ request()->routeIs('vehicle.create') || request()->routeIs('vehicle.index') ? "text-blue-700" : "" }} " >
                     <i class="fa-solid fa-car mr-2"></i> 
                     Manage Vehicle
                  </button>
                  <div id="car-opt" class=" hidden  flex-col gap-3 items-start px-7 py-2" >
-                     <a href="{{ route('vehicle.create') }}" >Publish Car</a>
-                     <a href="{{ route('vehicle.index') }}">All Cars</a>
+                     <a class=" {{ request()->routeIs('vehicle.create') ? "text-blue-700" : "" }}" href="{{ route('vehicle.create') }}" >Publish Car</a>
+                     <a class=" {{ request()->routeIs('vehicle.index') ? "text-blue-700" : "" }}" href="{{ route('vehicle.index') }}">All Cars</a>
                  </div>
             </div>
             <a id="chats" href="#" class="focus:text-blue-700 transition all " > <i class="fa-brands fa-rocketchat mr-2"></i> chats</a>
+            <a href= '{{ route('plans.index') }}  ' class="{{ request()->routeIs('plans.index') ? 'text-blue-700' : "" }}" >Plans</a>
         </div>
     </aside>
     
@@ -63,8 +61,8 @@
                 <div class="flex items-center bg-white" >
                     <img width="50px" src="https://automobiliard.com/user/resources/images/d-avatar.jpg" alt="avatar user picture">
                     <div class="flex flex-col px-3" >
-                        <span>username</span>
-                        <span>email@test.com</span>
+                        <span>{{ request()->user()->name  }}</span>
+                        <span>{{ request()->user()->email  }}</span>
                     </div>
                 </div>
                 <a href="{{ route('user.setting') }}">Profile Setting</a>
@@ -88,30 +86,17 @@
     <script>
         const sidebar = document.getElementById('sidebar');
         const dialogBox = document.getElementById('user-dialog');
-        const ad_opt = document.getElementById('ad-opt')
         const car_opt =document.getElementById('car-opt');
         let active = false;
-        let ad_menu =false;
         let car_menu = false;
 
 
         function handleClick(event){
-            if(event.target.id == "manage_ads"){
-                car_menu && car_opt.classList.remove('flex');
-                car_menu &&car_opt.classList.add('hidden')
-                ad_opt.classList.remove('hidden');
-                ad_opt.classList.add('flex');
-                ad_menu = true;
-                car_menu = false;
-            }   
-            else{
-                ad_menu && ad_opt.classList.remove('flex');
-                ad_menu && ad_opt.classList.add('hidden')
-                car_opt.classList.add('flex');
-                car_opt.classList.remove('hidden');
-                ad_menu =false;
-                car_menu =true;
-            }
+        
+            car_menu = !car_menu;
+            car_opt.classList.toggle('hidden', !car_menu);
+            car_opt.classList.toggle('flex', car_menu);
+    
         }
 
 

@@ -46,7 +46,7 @@
             </div>
             <div class="flex flex-col gap-3" >
                 <label for="phone">Phone Number</label>
-                <input class=" px-3 py-2 rounded border outline-none border-slate-500 focus:border-blue-700" type="number" min="0" max="12" maxlength="12" name="phone_number" placeholder="e.g 0312323111">
+                <input class=" px-3 py-2 rounded border outline-none border-slate-500 focus:border-blue-700" type="number" min="0"  maxlength="12" name="phone_number" placeholder="e.g 0312323111">
                     <span class=" text-red-500 font-medium px-3" >
                     @error('phone_number')
                         {{ $message }}

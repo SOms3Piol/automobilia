@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\PurchasedPlan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -38,11 +39,17 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        User::create([
+       $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => $request->input('password'), 
             'phone_number' => $request->input('phone_number')
+        ]);
+
+        PurchasedPlan::create([
+            'plan_id' => 1,
+            'user_id' => $user->id,
+            'allowed_ads' => 5
         ]);
 
         return redirect()->route('login')->with('success', 'Registration successful!');
