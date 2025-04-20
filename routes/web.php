@@ -7,7 +7,7 @@ use App\Http\Controllers\DealersController;
 
 use Illuminate\Support\Facades\Route;
 
-// nav routes
+// nav-bar routes
 Route::view('/' , 'welcome')->name("home");
 Route::get('/vehicles', [SearchController::class,'index'])->name('vehicles');
 Route::get('/search',[SearchController::class,'search'])->name('search.vehicle');
