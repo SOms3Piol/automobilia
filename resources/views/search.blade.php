@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">    
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     <title>Laravel</title>

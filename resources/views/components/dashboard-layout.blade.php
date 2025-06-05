@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
@@ -44,8 +44,9 @@
                      <a class=" {{ request()->routeIs('vehicle.index') ? "text-blue-700" : "" }}" href="{{ route('vehicle.index') }}">All Cars</a>
                  </div>
             </div>
-            <a id="chats" href="#" class="focus:text-blue-700 transition all " > <i class="fa-brands fa-rocketchat mr-2"></i> chats</a>
+            <a id="chats" href="{{route('chat.index')}}" class=" {{ request()->routeIs('vehicle.index') ? "text-blue-700" : "" }}"> <i class="fa-brands fa-rocketchat mr-2"></i> chats</a>
             <a href= '{{ route('plans.index') }}  ' class="{{ request()->routeIs('plans.index') ? 'text-blue-700' : "" }}" >Plans</a>
+       
         </div>
     </aside>
     

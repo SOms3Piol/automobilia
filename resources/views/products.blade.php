@@ -5,6 +5,7 @@
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script defer src="https://kit.fontawesome.com/00e77377ee.js" crossorigin="anonymous"></script>
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     @vite('resources/css/app.css')

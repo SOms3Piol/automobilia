@@ -82,7 +82,7 @@ class DealersController extends Controller{
 
     public function dashboard(){
 
-        $purchased_plan = PurchasedPlan::where('user_id' , auth()->user()->id);
+        $purchased_plan = PurchasedPlan::where('user_id' , auth()->user()->id)->first();
 
         $user_ads = [
             'allowed' => $purchased_plan->allowed_ads,

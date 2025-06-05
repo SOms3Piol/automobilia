@@ -10,11 +10,11 @@
                 <div class="flex justify-between mt-8" >
                     <div>
                         <p>Total Ads</p>
-                         <p>{{ $user_ads->allowed }}</p>
+                         <p>{{ $user_ads['allowed'] }}</p>
                     </div>
                     <div>
                         <p>Active Ads</p>
-                        <p>{{ $user_ads->active }}</p>
+                        <p>{{ $user_ads['active'] }}</p>
                     </div>
                 </div>
             </div>

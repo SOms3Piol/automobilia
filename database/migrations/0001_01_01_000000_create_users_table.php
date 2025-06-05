@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->text('profile_img')->default('https://automobiliard.com/user/resources/images/d-avatar.jpg');
             $table->string('name')->unique();
             $table->string('email')->unique();
             $table->string('phone_number')->default('N/A');

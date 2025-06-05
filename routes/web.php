@@ -5,6 +5,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\DealersController;
+use App\Http\Controllers\ChatController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,10 @@ Route::middleware('auth')->group(function(){
     Route::get('/checkout-success' , [CheckoutController::class, 'checkout_success'])->name('checkout.success');
     Route::get('/checkout-cancel' , [CheckoutController::class, 'checkout_cancel'])->name('checkout.cancel');
     Route::delete('/cancel-subscription', [CheckoutController::class, 'unsubscribe'])->name('unsubscribe');
+
+
+
+    Route::get('/chats',[ChatController::class,'index'])->name('chat.index');
 
 });
     

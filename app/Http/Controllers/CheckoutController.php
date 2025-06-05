@@ -13,7 +13,7 @@ class CheckoutController extends Controller{
 
     public function index(){
         $plans = Plan::all();
-        $purchased = PurchasedPlan::where('user_id' , auth()->user()->id);
+        $purchased = PurchasedPlan::where('user_id' , auth()->user()->id)->first();
         return view('checkout.plans' , compact('plans' , 'purchased'));
     }
 
