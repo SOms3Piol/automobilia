@@ -14,7 +14,10 @@ Broadcast::channel('chat.{chatId}', function ($user, $chatId) {
 
 Broadcast::channel('notification' , function($user){
     return (bool) $user;
-})
+});
 
+Broadcast::channel('status.{chat_id}' , function($user, $chat_id){
+    return ['id' => $user->id , 'chat_id' => $chat_id];
+});
 
 ?>

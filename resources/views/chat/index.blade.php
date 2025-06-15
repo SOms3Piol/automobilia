@@ -61,12 +61,19 @@
             const chat_cards = document.querySelectorAll('.chat-card');
 
             const message_input = document.getElementById('message-input');
+            
             const send_button = document.getElementById('send-button');
 
             const user_profile = document.getElementById('profile-img');
             const username = document.getElementById('username');
             const status = document.getElementById('status')
             const placeholder = document.querySelector('.placeholder');
+            var nextPageUrl;
+
+
+
+    
+
 
             send_button.addEventListener('click' , async ()=>{
                 const message_content = message_input.value;
@@ -146,7 +153,6 @@
             
 
                         window.Echo.private(`chat.${selected_chat}`)
-                        
                         .listen('.message.sent', (data)=>{
                             console.log(card.id)
                             if(data.sender_id != user_id ){
@@ -166,6 +172,22 @@
                             
                         });
 
+                        window.Echo.join(`status.${selected_chat}`)
+                        .here(users => {
+                            const isOtherUserOnline = users.some(user => user.id !== user_id);
+                            status.textContent = isOtherUserOnline ? 'ONLINE' : 'OFFLINE';
+                        })
+                        .joining((user) => {
+                            if (user.id !== user_id) {
+                                status.textContent = 'ONLINE';
+                            }
+                        })
+                        .leaving((user) => {
+                            if (user.id !== user_id) {
+                                status.textContent = 'OFFLINE';
+                            }
+                        });
+
 
                         e.currentTarget.classList.remove('bg-slate-300')
                         e.currentTarget.classList.add('bg-pink-300')
@@ -178,7 +200,7 @@
                 
             })
 
-
+            
             
 
             const incrementUnreadCount = (chat_id) =>  {
@@ -193,12 +215,16 @@
                 
             }
             
-           function hideUnreadCount(chat_id){
+
+            
+
+            function hideUnreadCount(chat_id){
                 const unread_count = document.getElementById(`unread_count_${chat_id}`);
                 if(!unread_count) return;
                 unread_count.textContent = ''; 
             }
 
+           
           
 
             window.Echo.private(`notification`)
@@ -210,23 +236,96 @@
 
            
 
-           const fetchMessageForChat = async (id , chat_id)=> {
+
+
+
+                let dayNames = [
+                    {
+                        name: "Monday",
+                        grouped: false
+                    },
+                    {
+                        name: "Tuesday",
+                        grouped: false
+                    },
+                    {
+                        name : "Wednesday",
+                        grouped: false
+                    },
+                    {
+                        name : "Thursday",
+                        grouped: false
+                    },
+                    {
+                        name : "Friday",
+                        grouped: false
+                    },
+                    {
+                        name: "Saturday",
+                        grouped: false
+                    },
+                    {
+                        name : "Sunday",
+                        grouped: false
+                    },
+
+                ];
+                function handleMessageGroup(currentDay){
+                    let dayNameGrouped = dayNames[currentDay -1];
+                        let count = 0;
+                        let previousDay = null;
+                        if(!dayNameGrouped.grouped){
+                            const dayTitle = document.createElement('div');
+                            dayTitle.className = 'bg-slate-200 py-1 my-4 px-4 rounded shadow-md w-fit mx-auto';
+                            dayTitle.textContent = dayNameGrouped.name;
+                            message_container.appendChild(dayTitle);
+                            dayNameGrouped.grouped = true;
+                            count = count + 1;
+                        }
+
+                        if(count === 7){
+                            if(previousDay != time.getDay()){
+                                const dayTitle = document.createElement('div');
+                                dayTitle.className = 'bg-slate-200 py-1 my-4 px-4 rounded shadow-md w-fit mx-auto';
+                                const formatted = time.toLocaleDateString('en-US', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                });
+                                dayTitle.textContent = formatted;
+                                message_container.appendChild(dayTitle);
+                                previousDay = time.getDay();
+                            }
+                        }
+                }
+
+    
+          
+            async function fetchMessageForChat(id , chat_id){
                 const response = await fetch(`/api/chat/${id}/messages` , {
-                method:'get',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                },
-                credentials: 'include',
-                });
+                        method:'get',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        },
+                        credentials: 'include',
+                        });
                 const array = await response.json();
-                
+                nextPageUrl = array.next_page_url;
+              
               if(chat_id != id){
                 let unread_marker = true;
                 message_container.innerHTML= '';
-                array.messages.forEach((message)=>{
+                message_container.innerHTML = 
+                `<div class='flex justify-center py-3' >
+                    <button id='nextpage-button' class=" cursor-pointer border-b border-slate-300 w-fit mx-auto" >click to load older messages</button>
+                </div>`;
+
+
+
+                array.messages.data.reverse().forEach((message)=>{
 
                     if((message.id > array.last_seen_id.message_id) && (message.sender_id != user_id) && unread_marker){
                         
@@ -236,22 +335,88 @@
                         message_container.appendChild(div);
                         unread_marker = false;
                         
-                    }
-
+                    }               
+                    // Message div 
                     const div = document.createElement('div');
-                    div.className = `line-break w-fit max-w-[450px] my-2 p-2 rounded ${
+                    div.className = `line-break text-left w-fit flex flex-col max-w-[450px] my-2 p-2 rounded ${
                         message.sender_id == user_id ? 'ml-auto bg-pink-300' : 'mr-auto bg-slate-300'
                     }`;
-                    div.textContent = message.message;
+
+                    const time = new Date(message.created_at);
+                    const formattedTime = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    currentDay = time.getDay();
+
+
+                    handleMessageGroup(currentDay);
+
+
+
+                   
+                    div.innerHTML = `${message.message} <small class='text-right pl-3 py-1' >${formattedTime}</small> `;
                     message_container.appendChild(div);
                 })
+
+                
+
                 message_container.scrollTo({
                         top: message_container.scrollHeight,
                         behavior: 'smooth'  
                 });
+                var next_button = document.getElementById('nextpage-button');
+                // next messages according to pagination
+
+            next_button.addEventListener('click' , ()=>{
+                        fetch(`${nextPageUrl}` , {
+                            method:'get',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            },
+                            credentials: 'include',
+                        })
+                        .then((data)=>  data.json())
+                        .then((response)=>{
+                             // Create HTML from messages
+                            const html = response.messages.data.reverse().map(msg => {
+                                
+                                return `
+                                <div class=' line-break w-fit max-w-[450px] my-2 p-2 rounded ${
+                                    msg.sender_id == user_id ? 'ml-auto bg-pink-300' : 'mr-auto bg-slate-300'
+                                }'>
+                                ${msg.message}
+                                </div>`
+                            }).join('');
+
+                            previousScrollHeight = message_container.scrollHeight
+
+                            // Prepend to container
+                            message_container.insertAdjacentHTML('afterbegin', html);
+
+                            // Adjust scroll so user doesn't jump
+                            message_container.scrollTop = container.scrollHeight - previousScrollHeight;
+
+                            // Update next page URL or disable button
+                            nextPageUrl = response.next_page_url;
+                            if (!nextPageUrl) {
+                                next_button.style.display = 'none';
+                            }
+
+                        })
+                    })
+                
+                if(!array.next_page_url){
+                    next_button.classList.add('hidden')
+                }
+               
               }
             }
+
+
         
+
         })
     </script>
 

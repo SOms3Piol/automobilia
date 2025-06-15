@@ -53,7 +53,7 @@ class ChatController extends Controller{
             return response()->json(['error' => 'Unauthorized or chat not found'], 403);
         }
 
-        $messages = Message::where('chat_id',$id)->get();
+        $messages = Message::where('chat_id',$id)->orderBy('id' , 'desc')->paginate(50);
 
         $last_seen_id = MessageRead::select(['message_id'])
                         ->where('chat_id' , $id)
@@ -67,6 +67,7 @@ class ChatController extends Controller{
         return response()->json([
             'messages'=>$messages,
             'last_seen_id' => $last_seen_id,
+            'next_page_url' => $messages->nextPageUrl(),
             'ok' => true
         ]);
     }

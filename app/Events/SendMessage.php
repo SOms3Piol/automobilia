@@ -38,6 +38,7 @@ class SendMessage implements ShouldBroadcast
         return [
             new PrivateChannel('chat.' . $this->chat_id),
             new PrivateChannel('notification'),
+            new PresenceChannel('status.'. $this->chat_id)
         ];
     }
     public function broadcastAs(){
